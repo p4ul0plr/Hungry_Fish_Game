@@ -5,7 +5,7 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/peixe_boca_fechada"
-        android:label="Hungry fish"
+        android:label="Hungry Fish"
         android:roundIcon="@drawable/peixe_boca_fechada"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
