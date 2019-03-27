@@ -34,9 +34,16 @@ public class FishView extends View {
     private int score;
     private int lifeCounterOfFish;
     private Bitmap life[] = new Bitmap[2];
-    private MediaPlayer yellowBollSong, redBallSong, greenBallSong, fishJumpingSong;
+    private MediaPlayer yellowBollSong, redBallSong, greenBallSong, fishJumpingSong, soundToIncreaseSpeed;
     private Bitmap littleYellowFish;
     private Bitmap littleGreenFish;
+    private Bitmap bottleRed;
+    private boolean increaseSpeed500 ;
+    private boolean increaseSpeed1000;
+    private boolean increaseSpeed1500;
+    private boolean increaseSpeed2000;
+    private boolean increaseSpeed2500;
+
 
     public FishView(Context context) {
         super(context);
@@ -64,8 +71,15 @@ public class FishView extends View {
         yellowBollSong = MediaPlayer.create(getContext(), R.raw.som_bola_amarela_verde);
         redBallSong = MediaPlayer.create(getContext(), R.raw.son_bolo_vermelha);
         fishJumpingSong = MediaPlayer.create(getContext(), R.raw.som_peixe_pulando);
+        soundToIncreaseSpeed = MediaPlayer.create(getContext(), R.raw.som_aumentou_velocidade);
         littleYellowFish = BitmapFactory.decodeResource(getResources(), R.drawable.peixinho_amarelo);
         littleGreenFish = BitmapFactory.decodeResource(getResources(), R.drawable.peixinho_verde);
+        bottleRed = BitmapFactory.decodeResource(getResources(), R.drawable.garrafa);
+        increaseSpeed500 = true;
+        increaseSpeed1000 = true;
+        increaseSpeed1500 = true;
+        increaseSpeed2000 = true;
+        increaseSpeed2500 = true;
     }
 
     @Override
@@ -139,11 +153,11 @@ public class FishView extends View {
         redX = redX - redSpeed;
         if (hitBallChecker(redX, redY)) {
 
-            if (score >= 100) {
+            /*if (score >= 100) {
                 score = score - 100;
             } else {
                 score = 0;
-            }
+            }*/
             redX = - 100;
             lifeCounterOfFish--;
             redBallSong.start();
@@ -160,7 +174,8 @@ public class FishView extends View {
             redY = (int) Math.floor(Math.random() * (maxFishY - minFishY)) + minFishY;
 
         }
-        canvas.drawCircle(redX, redY, 40, redPaint);
+        //canvas.drawCircle(redX, redY, 40, redPaint);
+        canvas.drawBitmap(bottleRed, redX, redY, null);
 
 
         //Desenha o score
@@ -181,23 +196,43 @@ public class FishView extends View {
         //canvas.drawBitmap(life[0], 880, 10, null);
        // canvas.drawBitmap(life[0], 980, 10, null);
 
-        if (score >= 500) {
+        if (score >= 500 && score < 1000) {
+            if (increaseSpeed500) {
+                soundToIncreaseSpeed.start();
+                increaseSpeed500 = false;
+            }
             yellowSpeed = 20;
             greenSpeed = 25;
             redSpeed = 30;
-        } else if (score >= 1000) {
+        } else if (score >= 1000 && score < 1500) {
+            if (increaseSpeed1000) {
+                soundToIncreaseSpeed.start();
+                increaseSpeed1000 = false;
+            }
             yellowSpeed = 25;
             greenSpeed = 30;
             redSpeed = 35;
-        } else if (score >= 1500) {
+        } else if (score >= 1500 && score < 2000) {
+            if (increaseSpeed1500) {
+                soundToIncreaseSpeed.start();
+                increaseSpeed1500 = false;
+            }
             yellowSpeed = 30;
             greenSpeed = 35;
             redSpeed = 40;
-        }  else if (score >= 2000) {
+        }  else if (score >= 2000 && score < 2500) {
+            if (increaseSpeed2000) {
+                soundToIncreaseSpeed.start();
+                increaseSpeed2000 = false;
+            }
             yellowSpeed = 35;
             greenSpeed = 40;
             redSpeed = 45;
         }  else if (score >= 2500) {
+            if (increaseSpeed2500) {
+                soundToIncreaseSpeed.start();
+                increaseSpeed2500 = false;
+            }
             yellowSpeed = 40;
             greenSpeed = 45;
             redSpeed = 50;
@@ -213,6 +248,10 @@ public class FishView extends View {
             return true;
         }
         return false;
+    }
+
+    public void somDeAumentarvelocidade () {
+
     }
 
     @Override
