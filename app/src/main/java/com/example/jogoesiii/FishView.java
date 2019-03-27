@@ -90,7 +90,8 @@ public class FishView extends View {
         canvasHeigth = canvas.getHeight();
 
         //Para o meu celular -1425
-        //Emulador 1455
+        //Emulador -1455
+        //celular de meu pai -1690
         if (backgroundImageX <= -1455) {
             backgroundImageX = 0;
             canvas.drawBitmap(backgroundImage, backgroundImageX, 0, null);
