@@ -21,7 +21,7 @@ public class FishView extends View {
     private boolean touch = false;
     private int canvasWidth;
     private int canvasHeigth;
-    private int yellowX, yellowY, yellowSpeed = 16;
+    private int yellowX, yellowY, yellowSpeed = 15;
     private Paint yellowPaint = new Paint();
     private int greenX, greenY, greenSpeed = 20;
     private Paint greenPaint = new Paint();
@@ -35,6 +35,8 @@ public class FishView extends View {
     private int lifeCounterOfFish;
     private Bitmap life[] = new Bitmap[2];
     private MediaPlayer yellowBollSong, redBallSong, greenBallSong, fishJumpingSong;
+    private Bitmap littleYellowFish;
+    private Bitmap littleGreenFish;
 
     public FishView(Context context) {
         super(context);
@@ -62,6 +64,8 @@ public class FishView extends View {
         yellowBollSong = MediaPlayer.create(getContext(), R.raw.som_bola_amarela_verde);
         redBallSong = MediaPlayer.create(getContext(), R.raw.son_bolo_vermelha);
         fishJumpingSong = MediaPlayer.create(getContext(), R.raw.som_peixe_pulando);
+        littleYellowFish = BitmapFactory.decodeResource(getResources(), R.drawable.peixinho_amarelo);
+        littleGreenFish = BitmapFactory.decodeResource(getResources(), R.drawable.peixinho_verde);
     }
 
     @Override
@@ -113,7 +117,8 @@ public class FishView extends View {
             yellowY = (int) Math.floor(Math.random() * (maxFishY - minFishY)) + minFishY;
 
         }
-        canvas.drawCircle(yellowX, yellowY, 25, yellowPaint);
+        //canvas.drawCircle(yellowX, yellowY, 25, yellowPaint);
+        canvas.drawBitmap(littleYellowFish, yellowX, yellowY, null);
 
         //Desenha bola verde
         greenX = greenX - greenSpeed;
@@ -127,7 +132,8 @@ public class FishView extends View {
             greenY = (int) Math.floor(Math.random() * (maxFishY - minFishY)) + minFishY;
 
         }
-        canvas.drawCircle(greenX, greenY, 15, greenPaint);
+        //canvas.drawCircle(greenX, greenY, 15, greenPaint);
+        canvas.drawBitmap(littleGreenFish, greenX, greenY, null);
 
         //Desenha bola vermelha
         redX = redX - redSpeed;
@@ -175,18 +181,26 @@ public class FishView extends View {
         //canvas.drawBitmap(life[0], 880, 10, null);
        // canvas.drawBitmap(life[0], 980, 10, null);
 
-        if (score >= 1000) {
-            yellowSpeed = 26;
+        if (score >= 500) {
+            yellowSpeed = 20;
+            greenSpeed = 25;
+            redSpeed = 30;
+        } else if (score >= 1000) {
+            yellowSpeed = 25;
             greenSpeed = 30;
             redSpeed = 35;
-        } else if (score >= 2000) {
-            yellowSpeed = 36;
+        } else if (score >= 1500) {
+            yellowSpeed = 30;
+            greenSpeed = 35;
+            redSpeed = 40;
+        }  else if (score >= 2000) {
+            yellowSpeed = 35;
             greenSpeed = 40;
             redSpeed = 45;
-        } else if (score >= 3000) {
-            yellowSpeed = 46;
-            greenSpeed = 50;
-            redSpeed = 55;
+        }  else if (score >= 2500) {
+            yellowSpeed = 40;
+            greenSpeed = 45;
+            redSpeed = 50;
         }
     }
 
